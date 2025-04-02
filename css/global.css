@@ -15,7 +15,7 @@ body {
 	color: white;
 	background-color: #000000;
 	overflow: hidden;
-    /* filter: contrast(1.2); */
+    /* filter: contrast(0.8); */
 }
 
 ::-moz-selection { /* Code for Firefox */
