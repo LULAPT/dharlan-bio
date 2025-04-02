@@ -49,6 +49,13 @@ body {
     }
 }
 
+/* Responsividade para tablets */
+@media (max-width: 480px) {
+    .container {
+        margin-top: 1px;
+    }
+}
+
 
 .container .banner {
     position: absolute;
@@ -694,7 +701,7 @@ body {
 /* Ajustes para telas menores (tablets) */
 @media (max-width: 480px) {
     .music-container {
-        padding-top: 30px;
+        padding-top: 200px;
         max-width: 95%; /* Aumenta a largura máxima para ocupar mais espaço */
     }
 }
