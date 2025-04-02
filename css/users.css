@@ -575,7 +575,7 @@ body {
     transform: translateX(-50%);
     border-radius: 1rem;
     padding: 2px 16px;
-    z-index: 10; /* Aumentado para garantir que fique acima de outros elementos */
+    z-index: -9999; /* Aumentado para garantir que fique acima de outros elementos */
     filter: none;
     box-shadow: none;
     white-space: nowrap;
@@ -599,6 +599,8 @@ body {
     border-radius: 8px;
     color: rgba(255, 255, 255, 0.178);
     transition: all 0.3s ease;
+    z-index: 1;
+    display: none;
 }
 
 .profileStats:hover {

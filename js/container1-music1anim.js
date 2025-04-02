@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Configurações iniciais para cada elemento
     animatedElements.forEach(element => {
         if (element) {
-            element.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+            // element.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+            element.style.boxShadow = '0 0 0 rgba(0,0,0,0)'; // Sombra invisível
             element.style.zIndex = '1';
             element.style.position = 'relative';
             element.style.willChange = 'transform';
