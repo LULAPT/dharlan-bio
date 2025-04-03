@@ -52,7 +52,7 @@ body {
 /* Responsividade para tablets */
 @media (max-width: 480px) {
     .container {
-        margin-top: 1px;
+        margin-top: 90px;
     }
 }
 
@@ -100,12 +100,6 @@ body {
 @media (max-width: 480px) {
     .container .profileLayout {
         padding-top: 10px;
-    }
-}
-/* Responsividade para tablets */
-@media (max-width: 480px) {
-    .container .profileLayout .profileUsername span {
-        font-size: 80px;
     }
 }
 .container .profileLayout .profileUsername {
@@ -254,12 +248,11 @@ body {
 }
 
 .container .presenceContainer {
-    margin-top: 20px;
     align-items: center;
     display: flex;
     /* overflow: hidden; */
     text-overflow: ellipsis;
-    background-color: rgba(255, 255, 255, 0.07);
+    background-color: rgba(255, 255, 255, 0.08);
     border: 2px solid rgba(255, 255, 255, 0.05);
     border-radius: 25px;
     box-sizing: border-box;
@@ -272,7 +265,7 @@ body {
 /* Ajustes para telas muito pequenas (smartphones) */
 @media (max-width: 480px) {
     .container .presenceContainer {
-        margin-top: 50px;
+        margin-top: 20px;
     }
 }
 
@@ -483,6 +476,7 @@ body {
     align-items: center;
     gap: 1rem;
     margin-top: 2px;
+    font-size: 19px;
     filter: drop-shadow(0 0 0.9px #ffffff) !important;
     cursor: url('/img/extralsmall.png') !important;
     transition: all 0.3s ease; /* Adiciona uma transição suave */
@@ -701,7 +695,7 @@ body {
 /* Ajustes para telas menores (tablets) */
 @media (max-width: 480px) {
     .music-container {
-        padding-top: 200px;
+        padding-top: 150px;
         max-width: 95%; /* Aumenta a largura máxima para ocupar mais espaço */
     }
 }
