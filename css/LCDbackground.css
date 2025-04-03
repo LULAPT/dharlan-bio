@@ -12,7 +12,7 @@
   bottom: 0;
   left: 0;
   pointer-events: none;
-  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.2) 33.33333%, rgba(255, 255, 255, 0.4) 33.33333%, rgba(255, 255, 255, 0.4) 66.66666%, rgba(255, 255, 255, 0.6) 66.66666%), linear-gradient(to right, rgba(255, 0, 0, 0.7) 33.33333%, rgba(0, 255, 0, 0.7) 33.33333%, rgba(0, 255, 0, 0.7) 66.66666%, rgba(0, 0, 255, 0.7) 66.66666%);
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0.2) 33.33333%, rgba(255, 255, 255, 0.4) 33.33333%, rgba(255, 255, 255, 0.4) 66.66666%, rgba(255, 255, 255, 0.6) 66.66666%), linear-gradient(to right, rgba(0, 0, 0, 0.7) 33.33333%, rgba(0, 0, 0, 0.7) 33.33333%, rgba(255, 255, 255, 0.7) 66.66666%, rgba(255, 255, 255, 0.7) 66.66666%);
   background-size: 3px 3px;
   mix-blend-mode: multiply;
 }
