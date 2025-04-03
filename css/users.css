@@ -81,7 +81,7 @@ body {
 /* Responsividade para tablets */
 @media (max-width: 480px) {
     .container .avatar {
-		margin-top: 20px;
+		margin-top: 10px;
         height: 150px;
         width: 150px;
     }
