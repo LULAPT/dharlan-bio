@@ -29,13 +29,6 @@ body {
     background: rgb(255, 255, 255);
   }
 
-/* Responsividade para tablets */
-@media (max-height: 664px) {
-    .content {
-		height: 650px;
-    }
-}
-
 .btn {
 	display: flex;
 	align-items: center;
