@@ -6,6 +6,7 @@ function criarLockscreen() {
   lockscreen.classList.add('lockscreen');
   
   // Aplicar propriedades para otimização de performance
+  lockscreen.style.backgroundColor = 'black';
   lockscreen.style.willChange = 'opacity, transform';
   lockscreen.style.backfaceVisibility = 'hidden';
   lockscreen.style.transform = 'translateZ(0)'; // Força aceleração de hardware

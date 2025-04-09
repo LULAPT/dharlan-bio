@@ -15,7 +15,7 @@ body {
 	color: white;
 	background-color: #000000;
 	overflow: hidden;
-    /* filter: contrast(0.8); */
+    filter: contrast(0.95);
 }
 
 ::-moz-selection { /* Code for Firefox */
@@ -85,12 +85,12 @@ body {
 }
 
 #background-layer-1 {
-    background-image: url(/img/Black-Waves-Wallpaper-for-Desktop-4K-3840x2160-in-2019-.jpg);
+    background-image: url(https://w.wallhaven.cc/full/yx/wallhaven-yxz25k.jpg);
     background-size: cover;
     will-change: transform;
     transform: translateZ(0);
 	pointer-events: none;
-	opacity: 0.6;
+	opacity: 0.9;
 }
 
 /* Animação básica para elementos surgindo */

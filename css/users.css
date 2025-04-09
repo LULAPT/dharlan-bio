@@ -452,8 +452,8 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-top: 2px;
-    font-size: 19px;
+    margin-top: 8px;
+    font-size: 18px;
     filter: drop-shadow(0 0 0.9px #ffffff) !important;
     cursor: url('/img/extralsmall.png') !important;
     transition: all 0.3s ease; /* Adiciona uma transição suave */

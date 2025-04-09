@@ -40,26 +40,7 @@
 }
 
 /* Adicionando o elemento para a borda rotativa */
-.popup-container::before {
-    content: '';
-    position: absolute;
-    width: 150%;
-    height: 150%;
-    background: linear-gradient(
-        0deg,
-        transparent,
-        #000000,
-        #ffffff,
-        #ffffff,
-        #000000,
-        transparent
-    );
-    top: -25%;
-    left: -25%;
-    z-index: -1;
-    animation: rotatingBorder 0.7s linear infinite;
-    opacity: 0.1;
-}
+
 
 /* Um segundo pseudo-elemento para criar um efeito mais rico */
 .popup-container::after {
