@@ -56,6 +56,12 @@ body {
     }
 }
 
+/* @media (max-width: 390px) {
+    .container {
+        margin-top: 90px;
+    }
+} */
+
 
 .container .banner {
     position: absolute;
@@ -81,7 +87,16 @@ body {
 /* Responsividade para tablets */
 @media (max-width: 480px) {
     .container .avatar {
-		margin-top: 10px;
+		margin-top: 40px;
+        height: 150px;
+        width: 150px;
+    }
+}
+
+/* Responsividade para tablets */
+@media (max-width: 390px) {
+    .container .avatar {
+		margin-top: -40px;
         height: 150px;
         width: 150px;
     }
@@ -666,7 +681,7 @@ body {
 
 .music-container {
     font-family: 'Chillax', sans-serif !important;
-    position: relative;
+    position: fixed;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -695,15 +710,24 @@ body {
 /* Ajustes para telas menores (tablets) */
 @media (max-width: 480px) {
     .music-container {
-        padding-top: 120px;
+        margin-top: -10px !important;
         max-width: 95%; /* Aumenta a largura máxima para ocupar mais espaço */
     }
 }
 
-/* Ajustes para telas muito pequenas (smartphones) */
-@media (min-width: 480px) {
+/* Ajustes para telas menores (tablets) */
+@media (max-width: 450px) {
     .music-container {
-        border-radius: 10px; /* Reduz o border-radius para telas pequenas */
+        margin-top: -40px !important;
+        max-width: 95%; /* Aumenta a largura máxima para ocupar mais espaço */
+    }
+}
+
+/* Ajustes para telas menores (tablets) */
+@media (max-width: 390px) {
+    .music-container {
+        margin-top: -100px !important;
+        max-width: 95%; /* Aumenta a largura máxima para ocupar mais espaço */
     }
 }
 
