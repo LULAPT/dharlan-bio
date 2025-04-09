@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.play();
             playIcon.style.display = 'none';
             pauseIcon.style.display = 'block';
-        }, 2500);
+        }, 2450);
     }
 
     // Adiciona evento de clique no site para habilitar o autoplay
