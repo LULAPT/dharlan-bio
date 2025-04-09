@@ -178,66 +178,28 @@ body {
     color: #ffffff !important;
 }
 
-.container .profileLayout .profileBadges .profileBadge::before {
-    content: '';
-    background-color: black;
-    opacity: 0;
+/* Novo estilo para o tooltip personalizado */
+.badge-tooltip {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.85);
     color: white;
-    position: absolute;
     font-size: 15px;
     font-weight: 600;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
     border-radius: 1rem;
-    padding: 2px 16px;
-    z-index: 1;
-    filter: none;
-    box-shadow: none;
+    padding: 4px 16px;
+    z-index: 10;
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     white-space: nowrap;
-    transition: opacity .3s;
-}
-
-.container .profileLayout .profileBadges .profileBadge:hover::before {
-    opacity: .8;
-}
-
-.container .profileLayout .profileBadges .profileBadge.dev:hover::before {
-    content: 'Developer';
-}
-.container .profileLayout .profileBadges .profileBadge.staff:hover::before {
-    content: 'Staff';
-}
-.container .profileLayout .profileBadges .profileBadge.certif:hover::before {
-    content: 'Certified';
-}
-.container .profileLayout .profileBadges .profileBadge.premium:hover::before {
-    content: 'Premium';
-}
-.container .profileLayout .profileBadges .profileBadge.bughunter:hover::before {
-    content: 'Bug Hunter';
-}
-.container .profileLayout .profileBadges .profileBadge.earlysupporter:hover::before {
-    content: 'Early Supporter';
-}
-.container .profileLayout .profileBadges .profileBadge.fire:hover::before {
-    content: 'ζξζ ι ζξζ';
-}
-.container .profileLayout .profileBadges .profileBadge.graphic:hover::before {
-    content: 'Graphic Designer';
-}
-.container .profileLayout .profileBadges .profileBadge.imagehost:hover::before {
-    content: 'Image Host';
-}
-.container .profileLayout .profileBadges .profileBadge.og:hover::before {
-    content: 'OG';
-}
-.container .profileLayout .profileBadges .profileBadge.sweet:hover::before {
-    content: 'Candy';
-}
-.container .profileLayout .profileBadges .profileBadge.patrick:hover::before {
-    content: 'St. Patrick';
-}
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animação tipo bounce */
+  }
+  
+  /* Podemos remover o pseudo-elemento ::before que era usado antes */
+  .container .profileLayout .profileBadges .profileBadge::before {
+    display: none;
+  }
 
 .container .profileLayout .profileBio {
     font-weight: 570;
