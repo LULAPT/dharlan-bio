@@ -718,7 +718,7 @@ body {
 /* Ajustes para telas menores (tablets) */
 @media (max-width: 450px) {
     .music-container {
-        margin-top: -40px !important;
+        margin-top: -100px !important;
         max-width: 95%; /* Aumenta a largura máxima para ocupar mais espaço */
     }
 }
