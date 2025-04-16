@@ -1,0 +1,295 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* :root {
+	cursor: crosshair;
+  } */
+
+body {
+	font-family: "Gidole", sans-serif !important;
+	width: 100%;
+	height: 100vh;
+	color: white;
+	background-color: #000000;
+	overflow: hidden;
+    filter: contrast(0.95);
+}
+
+::-moz-selection { /* Code for Firefox */
+    color: rgb(255, 255, 255);
+    background: rgb(255, 255, 255);
+
+  }
+  
+  ::selection {
+    color: rgb(255, 255, 255);
+    background: rgb(255, 255, 255);
+  }
+
+.btn {
+	display: flex;
+	align-items: center;
+	gap: .25rem;
+	color: #67cae2;
+	background: linear-gradient(90deg, #3399c06b, #3365c04a);
+	border: 1px solid #2d5db18f;
+	border-radius: 17px;
+}
+
+*::-webkit-scrollbar {
+	height: 7px;
+	width: 7px;
+}
+
+*::-webkit-scrollbar-track {
+	border-radius: 5px;
+	background-color: rgb(22, 22, 22);
+}
+
+*::-webkit-scrollbar-track:hover {
+	background-color: rgb(22, 22, 22);
+}
+
+*::-webkit-scrollbar-track:active {
+	background-color: rgb(22, 22, 22);
+}
+
+*::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background-color: #101010;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background-color: #101010;
+}
+
+*::-webkit-scrollbar-thumb:active {
+	background-color: #101010;
+}
+
+.background-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transition: background-position 0.2s ease-out;
+    will-change: transform; /* Indica ao navegador que a propriedade será animada */
+    transform: translateZ(0); /* Força a aceleração de hardware */
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+#background-layer-1 {
+    background-image: url(https://w.wallhaven.cc/full/yx/wallhaven-yxz25k.jpg);
+    background-size: cover;
+    will-change: transform;
+    transform: translateZ(0);
+	pointer-events: none;
+	opacity: 0.9;
+}
+
+/* Animação básica para elementos surgindo */
+@keyframes fadeInUp {
+	from {
+	  opacity: 0;
+	  transform: translateY(20px);
+	}
+	to {
+	  opacity: 1;
+	  transform: translateY(0);
+	}
+  }
+  
+
+  /* .animate-fade-in {
+	opacity: 0;
+  } */
+  
+/* Classes de delay para aplicar individualmente */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+.delay-7 { animation-delay: 0.7s; }
+.delay-8 { animation-delay: 0.8s; }
+.delay-9 { animation-delay: 0.9s; }
+.delay-10 { animation-delay: 1s; }
+
+/* Para delays maiores */
+.delay-15 { animation-delay: 1.5s; }
+.delay-20 { animation-delay: 2s; }
+.delay-25 { animation-delay: 2.5s; }
+.delay-30 { animation-delay: 3s; }
+
+.elemento-para-animar {
+    opacity: 0;
+    /* transform: translateY(20px); */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    will-change: opacity, transform;
+}
+  
+  .elemento-para-animar.animar {
+	opacity: 1;
+	transform: translateY(20px);
+  }
+
+/* Estilos para a lockscreen */
+.lockscreen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(22, 22, 22, 0.514);
+	z-index: 9999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: opacity 0.8s ease, visibility 0s linear 0.8s;
+	backdrop-filter: blur(10px);
+	/* cursor: pointer; */
+  }
+  
+  .lock-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+  }
+  
+  .lock-avatar {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	border: 3px solid rgba(255, 255, 255, 0.3);
+	margin-bottom: 20px;
+	box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+	animation: pulse 2s infinite ease-in-out;
+  }
+  
+  .click-text {
+	color: white;
+	font-size: 18px;
+	font-weight: 500;
+	opacity: 0.8;
+	transition: all 0.3s ease;
+	text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+	animation: fadeInOut 1.5s infinite alternate;
+	margin-top: 15px;
+  }
+  
+  /* Animação para a lockscreen quando desbloqueada */
+  .lockscreen.unlock {
+	opacity: 0;
+	visibility: hidden;
+  }
+  
+  /* Animações */
+  @keyframes pulse {
+	0% {
+	  transform: scale(1);
+	  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+	}
+	70% {
+	  transform: scale(1.05);
+	  box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+	}
+	100% {
+	  transform: scale(1);
+	  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+	}
+  }
+  
+  @keyframes fadeInOut {
+	0% {
+	  opacity: 0.4;
+	}
+	100% {
+	  opacity: 1;
+	}
+  }
+
+  @keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes moveUp {
+	from {
+		transform: translateY(0);
+	}
+	to {
+		transform: translateY(-60px);
+	}
+}
+
+/* Estilos para as scanlines com animação */
+.scanlines {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+	z-index: -1;
+}
+
+.scanlines:before,
+.scanlines:after {
+    display: block;
+    pointer-events: none;
+    content: "";
+    position: absolute;
+}
+
+.scanlines:before {
+    width: 100%;
+    height: 2px;
+    z-index: 2147483649;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0.75;
+    animation: scanline 6s linear infinite;
+}
+
+.scanlines:after {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2147483648;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 0, 0, 0.3) 51%
+    );
+    background-size: 100% 4px;
+    animation: scanlines 1s steps(60) infinite;
+}
+
+/* Animações para as scanlines */
+@keyframes scanline {
+    0% {
+        transform: translate3d(0, 200000%, 0);
+    }
+}
+
+@keyframes scanlines {
+    0% {
+        background-position: 0 50%;
+    }
+}
