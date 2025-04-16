@@ -7,530 +7,471 @@
     <meta content="#2F3136" name="theme-color">
     <title></title>
     <link rel="stylesheet" href="/css/global.css">
-    <link rel="stylesheet" href="/css/users.css">
-    <link rel="stylesheet" href="/css/popup.css">
-    <link rel="stylesheet" href="css/LCDbackground.css">
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&amp;f[]=array@400&amp;display=swap" rel="stylesheet">
     <link rel="icon" href="/img/AsteriskOpiumLogoSymb.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" data-font="chillax" href="https://api.fontshare.com/v2/css?f[]=chillax@500&amp;display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Gidole&family=Pacifico&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
-</head>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Gidole&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pacifico&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
-    body {
-        cursor: url(/img/extralsmall.png);
-    }
-    /* Animação básica */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .user-carousel-container {
+        width: 100%;
+        overflow: hidden;
+        margin: 50px 0;
+        position: relative;
+        height: 160px;
     }
 
-    .animate-fade-in {
-      opacity: 0;
-    }
-    
-    /* Classes de delay */
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    /* ... outras classes de delay ... */
-    
-    /* Agrupe elementos para animação em seções */
-    .animation-group {
-      margin-bottom: 40px;
+    .user-carousel {
+        display: flex;
+        gap: 20px;
+        animation: scrolling 20s linear infinite;
+        padding: 0 20px;
     }
 
-    * {
-    cursor: url('/img/extralsmall.png'), auto !important;
-}
+    .user-carousel:hover {
+        animation-play-state: paused;
+    }
 
-/* Para botões e links, você pode adicionar uma regra específica */
-a, button, .linkedAccountsRedirect svg, .popup-button {
-    cursor: url('/img/extralsmall.png'), pointer !important;
-}
+    .user-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 120px;
+        border-radius: 15px;
+        padding: 15px;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        backdrop-filter: blur(15px);
+        background-color: #111111d7;
+	    border: 1px #111111d7;
+        box-shadow: 2px 2px 1px #1414146b;
+    }
 
-        /* Force layout recalculation on page load */
-        body {
-            min-height: 100vh;
-            overflow-x: hidden;
+    .user-card:hover {
+        transform: translateY(5px);
+        /* box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2); */
+    }
+
+    .avatar {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 10px;
+        border: 2px solid #222;
+    }
+
+    .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .username {
+        font-weight: bold;
+        font-size: 16px;
+        margin: 5px 0;
+        color: #fff;
+    }
+
+    .user-path {
+        font-size: 12px;
+        color: #aaa;
+        margin: 0;
+    }
+
+    /* Efeito fade nos lados do carrossel */
+    .user-carousel-container::before,
+    .user-carousel-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 100px;
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .user-carousel-container::before {
+        left: 0;
+        background: linear-gradient(to right, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0));
+    }
+
+    .user-carousel-container::after {
+        right: 0;
+        background: linear-gradient(to left, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0));
+    }
+
+    @keyframes scrolling {
+        0% {
+            transform: translateX(0);
         }
-
-        /* Media query debugging */
-        @media screen and (max-width: 768px) {
-            /* Ensure responsive elements are flexible */
-            * {
-                max-width: 100%;
-                box-sizing: border-box;
-            }
+        100% {
+            transform: translateX(-950px);
         }
-  </style>
-<!-- <div class="scanlines">
+    }
+</style>
+</head>
+
 <div id="background"></div>
 <div id="background-layer-1" class="background-layer"></div>
-</div> -->
 
-    <!-- Este código deve ser adicionado ao seu HTML existente -->
-    <div class="popup-overlay" id="redirect-popup">
-        <div class="popup-container">
-            <p class="popup-message" id="popup-message">
-                Você será redirecionado para Discord. Deseja continuar?
-            </p>
-            <div class="popup-buttons">
-                <button class="popup-button popup-button-confirm" id="popup-confirm">Continuar</button>
-                <button class="popup-button popup-button-cancel" id="popup-cancel">Cancelar</button>
-            </div>
-        </div>
-    </div>
 
-<body profile="" style="font-family: Satoshi, sans-serif; cursor: url('/img/extralsmall.png'), auto; background-color: #222222;">
-    <div class="scanlines"><div class="video-container">
-        <!-- <div class="placeholder" style="background-image: url('/img/placeholdervideosunset.png');"></div> -->
-        <div class="placeholder" style="background-color: black;"></div>
-        <video style="filter: contrast(1.2);" class="background" autoplay muted loop preload="auto" disablePictureInPicture>
-            <source src="/img/Final Work Lunar Tears ffff.mp4" type="video/mp4">
-            <source src="/img/Final-Work-Lunar-Tears-ffff.webm" type="video/mp4">
-        </video>
-    </div></div>
-    
-    <!-- Novo controle de volume -->
-    <div style class="volume-control">
-        <svg class="volume-icon" xmlns="http://www.w3.org/2000/svg" width="2.3em" height="2.3em" viewBox="0 0 24 24" style="opacity: 0.1;">
-            <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77"></path>
-        </svg>
-        <input style="cursor: url('/img/extralsmall.png') !important;" type="range" class="volume-slider" min="0" max="1" step="0.1" value="1">
-    </div>
-
-    <div class="content" style="position: fixed; width: 100%; align-items: center; max-width: var(--containerWidth); display: flex; justify-content: center; flex-direction: column; gap: 15px; will-change: transform; transition: 700ms cubic-bezier(0.03, 0.98, 0.52, 0.99); transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);">
-        <div class="container"  style="will-change: transform; transition: 0ms cubic-bezier(0.03, 0.98, 0.52, 0.99); transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);">
-            <div class="elemento-para-animar delay-9">
-            <img style="filter: contrast(1.2)" class="avatar" src="https://i.pinimg.com/736x/4c/f0/70/4cf0704300ecfd78770c04f31beee098.jpg">
-        </div>
-
-        <div class="profileLayout">
-            <div class="elemento-para-animar delay-13">
-            <h1 class="profileUsername" style="color: #ffffff; text-shadow: 0 0 20px #ffffff;"><span>D</span>harlan</h1></div>
-                        <!-- <div class="elemento-para-animar delay-15"><h3 id="typingText" style="color: #ffffff;" class="profileBio"></h3>
-                <i><div id="typingTexts" style="display: none;">This is neon genesis evangelion. &lt;&gt; Soon, all will wane. &lt;&gt; Hear the elegy of the lost. &lt;&gt; :wave:👋</div></i></div> -->
-
-            <div class="elemento-para-animar delay-17">
-            <div class="profileBadges">
-                <div style="display: flex;" class="profileBadge dev">
-                    <svg class="profileBadge" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        xmlns="http://www.w3.org/2000/svg" height="1.3em" viewBox="0 0 24 24" width="1.3em">
-                        <path
-                            d="m21.58 11.4-4.28-7.39-.35-.6h-9.91l-.35.6-4.27 7.39-.35.6.35.6 4.27 7.39.35.6h9.92l.35-.6 4.28-7.39.35-.6zm-13.07-1.03-1.63 1.63 1.63 1.63v2.73l-4.36-4.36 4.37-4.37v2.74zm3.12 6.93-2.04-.63 3.1-9.98 2.04.64zm3.86-.93v-2.73l1.63-1.64-1.63-1.63v-2.74l4.36 4.37z"
-                            style="filter: drop-shadow(0 0 1.5px #ffffff) !important;" fill="#ffffff" />
-                    </svg>
+<body profile="" style="font-family: Montserrat, sans-serif; cursor: url('/img/extralsmall.png'), auto;">
+        <div class="container">
+            <header>
+                <img src="img/rafa-biologo.png" alt="Gun icon" class="gun-icon">
+                <div class="logo">rafa<span>.</span>bio</div>
+                <div class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">Features</a>
+                    <a href="#">Preços</a>
+                    <a href="#">Avaliações</a>
+                    <a href="#">Contato</a>
                 </div>
-
-                <!-- <div class="profileBadge certif">
-                    <svg class="profileBadge" xmlns="http://www.w3.org/2000/svg"
-                        style="fill: #ffffff; filter: drop-shadow(0 0 1.5px #ffffff) !important;" width="1em"
-                        height="1em" viewBox="1 1.5 22 21">
-                        <path
-                            d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45l-3.4 1.45Zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12l3.55 3.55Z">
-                        </path>
-                    </svg>
-                </div> -->
-
-                <!-- <div style="display: flex;" class="profileBadge premium">
-                    <svg class="profileBadge" xmlns:xlink="http://www.w3.org/1999/xlink"
-                        xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="23 32 465 448" width="1.3em">
-                        <path
-                            d="M396.31 32H264l84.19 112.26L396.31 32zm-280.62 0l48.12 112.26L248 32H115.69zM256 74.67L192 160h128l-64-85.33zm166.95-23.61L376.26 160H488L422.95 51.06zm-333.9 0L23 160h112.74L89.05 51.06zM146.68 192H24l222.8 288h.53L146.68 192zm218.64 0L264.67 480h.53L488 192H365.32zm-35.93 0H182.61L256 400l73.39-208z"
-                            style="filter: drop-shadow(0 0 1.5px #ffffff) !important;" fill="#ffffff" />
-                    </svg>
-                </div> -->
-
-                <!-- <div class="profileBadge sweet">
-                    <svg class="profileBadge" xmlns="http://www.w3.org/2000/svg"
-                        style="fill: #ffffff; filter: drop-shadow(0 0 1.5px #ffffff) !important;" width="1em"
-                        height="1em" viewBox="2.13 0 9.69 13.94">
-                        <path
-                        d="M6.98 0C8 0 8.986.32 9.804.907L8.046 3.632a1.615 1.615 0 0 0-2.217.081L2.845 2.511a.63.63 0 0 0-.094-.03A4.844 4.844 0 0 1 6.98 0M2.29 3.627a4.845 4.845 0 0 0-.156 1.22v1.076a1.615 1.615 0 0 0 3.231 0v-1.05L2.378 3.67a.629.629 0 0 1-.088-.043m6.306 1.458l2.134-3.31a4.846 4.846 0 0 1 1.097 3.071v1.27l-3.231 3.23v-4.26Zm0 6.03v1.27a1.616 1.616 0 0 0 3.23 0V7.884z">
-                        </path>
-                    </svg>
-                </div> -->
-
-                <div class="profileBadge og">
-                    <svg class="profileBadge" xmlns="http://www.w3.org/2000/svg"
-                        style="fill: #ffffff; filter: drop-shadow(0 0 1.5px #ffffff) !important;" width="1em"
-                        height="1em" viewBox="1 1.5 22 21">
-                        <path
-                        d="m12 8.5l2.116 5.088l5.492.44l-4.184 3.585l1.278 5.36L12 20.1l-4.702 2.872l1.278-5.36l-4.184-3.584l5.492-.44L12 8.5ZM8 2v9H6V2h2Zm10 0v9h-2V2h2Zm-5 0v5h-2V2h2Z">
-                        </path>
-                    </svg>
-                </div>
-
-                <div class="profileBadge patrick">
-                    <svg class="profileBadge" xmlns="http://www.w3.org/2000/svg"
-                        style="fill: #ffffff; filter: drop-shadow(0 0 1.5px #ffffff) !important;" width="1em"
-                        height="1em" viewBox="0 0 64 64">
-                        <path
-                        d="M31.096 62h-4.891s5.02-18.473 5.213-30.574c.014-.838 1.164-.838 1.164 0C32.582 48.862 31.096 62 31.096 62m26.889-40.164c-9.24-6.425-22.98 7.2-24.522 9.138c.873 1.571 6.095 21.527 16.962 20.817c10.104-.658 8.646-12.536 4.267-14.841c5.278.041 11.593-9.343 3.293-15.114"></path><path fill="currentColor" d="M46.571 7.935c-3.203-9.883-13.61-5.449-14.572-.513c-1.323-5.26-11.473-9.185-14.57.521c-3.449 10.808 13.355 20.356 14.56 21.946c1.2-1.264 18.032-11.321 14.582-21.954"></path><path fill="currentColor" d="M6.013 21.836c-8.298 5.771-1.98 15.155 3.295 15.114c-4.38 2.306-5.836 14.183 4.267 14.841c10.868.709 16.065-19.245 16.937-20.816c-1.596-1.938-15.317-15.52-24.499-9.139">
-                        </path>
-                    </svg>
-                </div>
-                
-                <div class="profileBadge fire">
-                    <svg class="profileBadge" xmlns="http://www.w3.org/2000/svg"
-                        style="fill: #ffffff; filter: drop-shadow(0 0 1.5px #ffffff) !important;" width="1em"
-                        height="1em" viewBox="4.99 3 14 18">
-                        <path
-                        d="M17.66 11.2c-.23-.3-.51-.56-.77-.82c-.67-.6-1.43-1.03-2.07-1.66C13.33 7.26 13 4.85 13.95 3c-.95.23-1.78.75-2.49 1.32c-2.59 2.08-3.61 5.75-2.39 8.9c.04.1.08.2.08.33c0 .22-.15.42-.35.5c-.23.1-.47.04-.66-.12a.58.58 0 0 1-.14-.17c-1.13-1.43-1.31-3.48-.55-5.12C5.78 10 4.87 12.3 5 14.47c.06.5.12 1 .29 1.5c.14.6.41 1.2.71 1.73c1.08 1.73 2.95 2.97 4.96 3.22c2.14.27 4.43-.12 6.07-1.6c1.83-1.66 2.47-4.32 1.53-6.6l-.13-.26c-.21-.46-.77-1.26-.77-1.26m-3.16 6.3c-.28.24-.74.5-1.1.6c-1.12.4-2.24-.16-2.9-.82c1.19-.28 1.9-1.16 2.11-2.05c.17-.8-.15-1.46-.28-2.23c-.12-.74-.1-1.37.17-2.06c.19.38.39.76.63 1.06c.77 1 1.98 1.44 2.24 2.8c.04.14.06.28.06.43c.03.82-.33 1.72-.93 2.27Z">
-                        </path>
-                    </svg>
-                </div>
-
-                <div class="profileBadge staff">
-                    <svg class="profileBadge" xmlns="http://www.w3.org/2000/svg"
-                        style="fill: #ffffff; filter: drop-shadow(0 0 1.5px #ffffff) !important;" width="1em"
-                        height="1em" viewBox="1 1.5 22 21">
-                        <path
-                        d="m16.06 13.09l5.63 5.59l-3.32 3.28l-5.59-5.59v-.92l2.36-2.36h.92m.91-2.53L16 9.6l-4.79 4.8v1.97L5.58 22L2.3 18.68l5.59-5.59h1.97l.78-.78L6.8 8.46H5.5L2.69 5.62L5.31 3l2.8 2.8v1.31L12 10.95l2.66-2.66l-.96-1.01L15 5.97h-2.66l-.65-.65L15 2l.66.66v2.66L16.97 4l3.28 3.28c1.09 1.1 1.09 2.89 0 3.98l-1.97-2.01l-1.31 1.31Z">
-                        </path>
-                    </svg>
-                </div>
-                
-            </div>
-            </div>
-            <div class="elemento-para-animar delay-18"><h3 id="typingText" style="color: #ffffff;" class="profileBio"></h3>
-                <i><div id="typingTexts" style="display: none;">You are a doomed vessel. &lt;&gt; Soon, all will wane. &lt;&gt; You have been dying from your first breath. &lt;&gt; :wave:👋 &lt;&gt; Death is a song all will hear.</div></i></div>
-            <script src="/js/typing.js"></script>
-            <script src="/js/oneko.js"></script>  
-            <script src="/js/discordStatus.js"></script>
-            <script src="/js/title.js"></script>
-            <script src="/js/row.js"></script>
-            <script src="/js/player.js"></script>
-            <script src="/js/container1-music1anim.js"></script>
-            <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-            <script src="/js/discordUserImage.js"></script>
-            <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-            <script src="/js/lockscreen.js"></script>
-            <script src="/js/e1ditQ6vEJSZZqx57987sFCx3bRf.js"></script>
-        </div>
-
-        <div class="elemento-para-animar delay-19">
-        <div class="presenceWrapper">
-            <div class="presenceContainer">
-                <div class="discordInfos">
-                    <div class="discordAvatar">
-                        <img style="opacity: 1;" class="avatarImage" src="https://images-ext-1.discordapp.net/external/YYKvdkshwuzcG-lDkAq7U_1LlJm-gj0qftE5cPIUB-U/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/682694935631233203/a7723ca8faa9c1608f3cc37e95a63680.png?format=webp&quality=lossless"
-                            alt="Discord Avatar">
-                        <img style="background-color: #15141500; border-radius: 25px;" class="discordStatus" src="/img/online.png" alt="idle">
-                    </div>
-                    <div class="discordActivity">
-                        <div class="discordUser">
-                            <div class="discordUserDiv">
-                                <span>sleepmix</span>
-                                <div class="discordUserBadges">
-                                    <div class="discordUserBadge" data-tooltip="Assinante desde 16 de mar. de 2025">
-                                        <img src="/img/nitro.png" alt="Discord Badge">
-                                    </div>
-                                    <div class="discordUserBadge" data-tooltip="Impulsionando o servidor desde 16 de mar. de 2025">
-                                        <img src="/img/boost.png" alt="Discord Badge">
-                                    </div>
-                                    <div class="discordUserBadge" data-tooltip="Completou uma Missão">
-                                        <img src="/img/mission.png" alt="Discord Badge">
-                                    </div>
-                                </div>
-                            </div>
-                            <h3 style="margin-left: 5px;"> > (◞ ‸ ◟ㆀ)</h3>
-                        </div>
-                        <div class="discordActivityImage"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-        <div class="elemento-para-animar delay-20"><div class="linkedAccounts">
-            <a data-type="Discord" class="linkedAccountsRedirect" id="trigger-popup" target="_blank"
-                href="https://discord.com/users/682694935631233203">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="1.96 4.26 20.03 15.53">
-                    <path fill="currentColor"
-                        d="M14.82 4.26a10.14 10.14 0 0 0-.53 1.1a14.66 14.66 0 0 0-4.58 0a10.14 10.14 0 0 0-.53-1.1a16 16 0 0 0-4.13 1.3a17.33 17.33 0 0 0-3 11.59a16.6 16.6 0 0 0 5.07 2.59A12.89 12.89 0 0 0 8.23 18a9.65 9.65 0 0 1-1.71-.83a3.39 3.39 0 0 0 .42-.33a11.66 11.66 0 0 0 10.12 0q.21.18.42.33a10.84 10.84 0 0 1-1.71.84a12.41 12.41 0 0 0 1.08 1.78a16.44 16.44 0 0 0 5.06-2.59a17.22 17.22 0 0 0-3-11.59a16.09 16.09 0 0 0-4.09-1.35zM8.68 14.81a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.93 1.93 0 0 1 1.8 2a1.93 1.93 0 0 1-1.8 2zm6.64 0a1.94 1.94 0 0 1-1.8-2a1.93 1.93 0 0 1 1.8-2a1.92 1.92 0 0 1 1.8 2a1.92 1.92 0 0 1-1.8 2z">
-                    </path>
-                </svg>
-            </a>
-
-            <a data-type="Spotify" class="linkedAccountsRedirect" id="trigger-popup" target="_blank"
-                href="https://open.spotify.com/user/dharland4rk">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="2.02 2.02 19.98 19.98">
-                    <path fill="currentColor"
-                        d="M12.01 2.019c-5.495 0-9.991 4.496-9.991 9.991c0 5.494 4.496 9.99 9.991 9.99c5.494 0 9.99-4.496 9.99-9.99c0-5.495-4.446-9.991-9.99-9.991zm4.595 14.436c-.199.299-.549.4-.85.201c-2.349-1.45-5.296-1.75-8.793-.951c-.348.102-.648-.148-.748-.449c-.101-.35.149-.648.45-.749c3.795-.85 7.093-.499 9.69 1.1c.35.149.4.548.251.848zm1.2-2.747c-.251.349-.7.499-1.051.249c-2.697-1.646-6.792-2.148-9.939-1.148c-.398.101-.85-.1-.949-.498c-.101-.402.1-.852.499-.952c3.646-1.098 8.143-.548 11.239 1.351c.3.149.45.648.201.998zm.099-2.799c-3.197-1.897-8.542-2.097-11.59-1.146a.938.938 0 0 1-1.148-.6a.937.937 0 0 1 .599-1.151c3.547-1.049 9.392-.85 13.089 1.351c.449.249.599.849.349 1.298c-.25.35-.849.498-1.299.248z">
-                    </path>
-                </svg>
-            </a>
+            </header>
             
-            <!-- <a data-type="Pinterest" class="linkedAccountsRedirect" id="trigger-popup" target="_blank" href="https://br.pinterest.com/dhxrlan/">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="0 0 511.998 511.998">
-                    <path fill="currentColor"
-                    d="M405.017,52.467C369.774,18.634,321.001,0,267.684,0C186.24,0,136.148,33.385,108.468,61.39 c-34.114,34.513-53.675,80.34-53.675,125.732c0,56.993,23.839,100.737,63.76,117.011c2.68,1.098,5.377,1.651,8.021,1.651 c8.422,0,15.095-5.511,17.407-14.35c1.348-5.071,4.47-17.582,5.828-23.013c2.906-10.725,0.558-15.884-5.78-23.353 c-11.546-13.662-16.923-29.817-16.923-50.842c0-62.451,46.502-128.823,132.689-128.823c68.386,0,110.866,38.868,110.866,101.434 c0,39.482-8.504,76.046-23.951,102.961c-10.734,18.702-29.609,40.995-58.585,40.995c-12.53,0-23.786-5.147-30.888-14.121 c-6.709-8.483-8.921-19.441-6.222-30.862c3.048-12.904,7.205-26.364,11.228-39.376c7.337-23.766,14.273-46.213,14.273-64.122 c0-30.632-18.832-51.215-46.857-51.215c-35.616,0-63.519,36.174-63.519,82.354c0,22.648,6.019,39.588,8.744,46.092 c-4.487,19.01-31.153,132.03-36.211,153.342c-2.925,12.441-20.543,110.705,8.618,118.54c32.764,8.803,62.051-86.899,65.032-97.713 c2.416-8.795,10.869-42.052,16.049-62.495c15.817,15.235,41.284,25.535,66.064,25.535c46.715,0,88.727-21.022,118.298-59.189 c28.679-37.02,44.474-88.618,44.474-145.282C457.206,127.983,438.182,84.311,405.017,52.467z">
-                    </path>
-                </svg>
-            </a> -->
-            <a data-type="Instagram" class="linkedAccountsRedirect" id="trigger-popup" target="_blank" href="http://instagram.com/xanaxirl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="1 0 15 17">
-                    <path fill="currentColor"
-                        d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334">
-                    </path>
-                </svg>
-            </a>
-            <a data-type="Steam" class="linkedAccountsRedirect" id="trigger-popup" target="_blank" href="https://steamcommunity.com/id/DHRLN/">
-                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 50 50">
-                    <path fill="currentColor"
-                    d="M 25 3 C 13.59 3 4.209375 11.680781 3.109375 22.800781 L 14.300781 28.529297 C 15.430781 27.579297 16.9 27 18.5 27 L 18.550781 27 C 18.940781 26.4 19.389375 25.649141 19.859375 24.869141 C 20.839375 23.259141 21.939531 21.439062 23.019531 20.039062 C 23.259531 15.569063 26.97 12 31.5 12 C 36.19 12 40 15.81 40 20.5 C 40 25.03 36.430937 28.740469 31.960938 28.980469 C 30.560938 30.060469 28.750859 31.160859 27.130859 32.130859 C 26.350859 32.610859 25.6 33.059219 25 33.449219 L 25 33.5 C 25 37.09 22.09 40 18.5 40 C 14.91 40 12 37.09 12 33.5 C 12 33.33 12.009531 33.17 12.019531 33 L 3.2792969 28.519531 C 4.9692969 38.999531 14.05 47 25 47 C 37.15 47 47 37.15 47 25 C 47 12.85 37.15 3 25 3 z M 31.5 14 C 27.92 14 25 16.92 25 20.5 C 25 24.08 27.92 27 31.5 27 C 35.08 27 38 24.08 38 20.5 C 38 16.92 35.08 14 31.5 14 z M 31.5 16 C 33.99 16 36 18.01 36 20.5 C 36 22.99 33.99 25 31.5 25 C 29.01 25 27 22.99 27 20.5 C 27 18.01 29.01 16 31.5 16 z M 18.5 29 C 17.71 29 16.960313 29.200312 16.320312 29.570312 L 19.640625 31.269531 C 20.870625 31.899531 21.350469 33.410625 20.730469 34.640625 C 20.280469 35.500625 19.41 36 18.5 36 C 18.11 36 17.729375 35.910469 17.359375 35.730469 L 14.029297 34.019531 C 14.289297 36.259531 16.19 38 18.5 38 C 20.99 38 23 35.99 23 33.5 C 23 31.01 20.99 29 18.5 29 z">
-                    </path>
-                </svg>
-            </a>
-            <!-- <a data-type="Roblox" class="linkedAccountsRedirect" id="trigger-popup" target="_blank" href="https://www.roblox.com/users/170393779/profile">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="2 12 50 30">
-                    <path fill="currentColor"
-                        d="M 12.125 1.9980469 A 1.0001 1.0001 0 0 0 11.199219 2.7441406 L 2.0332031 37.576172 A 1.0001 1.0001 0 0 0 2.7460938 38.798828 L 37.580078 47.966797 A 1.0001 1.0001 0 0 0 38.802734 47.253906 L 47.96875 12.419922 A 1.0001 1.0001 0 0 0 47.255859 11.197266 L 12.421875 2.03125 A 1.0001 1.0001 0 0 0 12.125 1.9980469 z M 21.5 19 L 31 21.5 L 28.5 31 L 19 28.5 L 21.5 19 z">
-                    </path>
-                </svg>
-            </a> -->
-            <a data-type="Twitter" class="linkedAccountsRedirect" id="trigger-popup" target="_blank" href="https://x.com/KASSAJAM">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="0 0 48 48">
-                    <path fill="currentColor"
-                    d="M 50.0625 10.4375 C 48.214844 11.257813 46.234375 11.808594 44.152344 12.058594 C 46.277344 10.785156 47.910156 8.769531 48.675781 6.371094 C 46.691406 7.546875 44.484375 8.402344 42.144531 8.863281 C 40.269531 6.863281 37.597656 5.617188 34.640625 5.617188 C 28.960938 5.617188 24.355469 10.21875 24.355469 15.898438 C 24.355469 16.703125 24.449219 17.488281 24.625 18.242188 C 16.078125 17.8125 8.503906 13.71875 3.429688 7.496094 C 2.542969 9.019531 2.039063 10.785156 2.039063 12.667969 C 2.039063 16.234375 3.851563 19.382813 6.613281 21.230469 C 4.925781 21.175781 3.339844 20.710938 1.953125 19.941406 C 1.953125 19.984375 1.953125 20.027344 1.953125 20.070313 C 1.953125 25.054688 5.5 29.207031 10.199219 30.15625 C 9.339844 30.390625 8.429688 30.515625 7.492188 30.515625 C 6.828125 30.515625 6.183594 30.453125 5.554688 30.328125 C 6.867188 34.410156 10.664063 37.390625 15.160156 37.472656 C 11.644531 40.230469 7.210938 41.871094 2.390625 41.871094 C 1.558594 41.871094 0.742188 41.824219 -0.0585938 41.726563 C 4.488281 44.648438 9.894531 46.347656 15.703125 46.347656 C 34.617188 46.347656 44.960938 30.679688 44.960938 17.09375 C 44.960938 16.648438 44.949219 16.199219 44.933594 15.761719 C 46.941406 14.3125 48.683594 12.5 50.0625 10.4375 Z">
-                    </path>
-                </svg>
-            </a>
-            <a data-type="LastFM" class="linkedAccountsRedirect" id="trigger-popup" target="_blank" href="https://www.last.fm/user/xw4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="0 0 32 32">
-                    <path fill="currentColor"
-                    d="M14.131 22.948l-1.172-3.193c0 0-1.912 2.131-4.771 2.131-2.537 0-4.333-2.203-4.333-5.729 0-4.511 2.276-6.125 4.515-6.125 3.224 0 4.245 2.089 5.125 4.772l1.161 3.667c1.161 3.561 3.365 6.421 9.713 6.421 4.548 0 7.631-1.391 7.631-5.068 0-2.968-1.697-4.511-4.844-5.244l-2.344-0.511c-1.624-0.371-2.104-1.032-2.104-2.131 0-1.249 0.985-1.984 2.604-1.984 1.767 0 2.704 0.661 2.865 2.24l3.661-0.444c-0.297-3.301-2.584-4.656-6.323-4.656-3.308 0-6.532 1.251-6.532 5.245 0 2.5 1.204 4.077 4.245 4.807l2.484 0.589c1.865 0.443 2.484 1.224 2.484 2.287 0 1.359-1.323 1.921-3.828 1.921-3.703 0-5.244-1.943-6.124-4.625l-1.204-3.667c-1.541-4.765-4.005-6.531-8.891-6.531-5.287-0.016-8.151 3.385-8.151 9.192 0 5.573 2.864 8.595 8.005 8.595 4.14 0 6.125-1.943 6.125-1.943z">
-                    </path>
-                </svg>
-            </a>
-        </div>
-    </div>
-       
-</div>
+            <section class="hero">
+                <h1>Eleve a sua presença online.</h1>
+                <p>rafa.bio é o seu novo indexador de redes sociais moderno, rápido. Tudo que você precisa, todos os seus links em um só lugar — bem aqui.</p>
+                <!-- <button class="cta-button">Comece Agora</button> -->
+                <div class="input-container">
+                    <div class="input-wrapper">
+                      <span class="prefix">rafa.bio/</span>
+                      <input type="text" class="input-field" placeholder="nickname">
+                    </div>
+                    <button class="cta-button">Claim Now</button>
+                  </div>
+            </section>
 
-<div class="elemento-para-animar delay-20">
-    <div style="margin-top: -100px; will-change: transform; transition: 0ms cubic-bezier(0.03, 0.98, 0.52, 0.99); transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);" class="music-container">
-       <div class="music-player">
-            <div class="player-controls-timeline" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-                <!-- Icon with border at the beginning -->
-                <div style="margin-right: 10px; border-radius: 10%; padding: 4px; display: flex; align-items: center; justify-content: center; padding-bottom: 50px;">
-                    <img style="border-radius: 10px; width: 60px; height: 60px;" src="https://i.pinimg.com/736x/1c/5f/81/1c5f818bf4cf31e57f58d6b31b8ca950.jpg">
+            <section class="showcase">
+                <img src="/img/dashboard.png" alt="">
+                <img src="/img/profile_showcase.png" alt="">
+            </section>
+
+            <!-- Início do carrossel de usuários -->
+<div class="user-carousel-container">
+    <div class="user-carousel" id="userCarousel">
+        <!-- Os usuários serão gerados via JavaScript -->
+    </div>
+</div>
+<!-- Fim do carrossel de usuários -->
+            
+<!-- Adicione esta seção onde deseja que apareça na sua página, provavelmente entre a seção de estatísticas e o footer -->
+<section class="features-section">
+    <div class="divider horizontal-divider"></div>
+    <div class="container">
+        <div class="features-grid">
+            <div class="features-column">
+                <div class="feature-header">
+                    <!-- <img src="/img/widgets-icon.png" alt="Widgets Icon" class="feature-icon"> -->
+                    <h2>Integração de Widgets</h2>
                 </div>
+                <p class="feature-description">Enriqueça sua página com interatividade e responsividade, exiba conteúdo personalizado, status, e mais.</p>
                 
-                <!-- Current time -->
-                <span class="current-time" style="margin-right: 5px; opacity: 0.9">0:00</span>
-                
-                <!-- Timeline -->
-                <div class="timeline" style="flex-grow: 1; margin: 0 5px; position: relative; height: 4px; background-color: rgba(255, 255, 255, 0.3); border-radius: 2px;">
-                    <div class="timeline-progress" style="position: absolute; height: 100%; width: 30%; background-color: white; border-radius: 2px;"></div>
+                <div class="feature-card widget-card">
+                    <div class="widget-content">
+                        <img src="https://images-ext-1.discordapp.net/external/qky0eieAfPdxeai8NjB2KHPGWrJg7EuGywLkFILUZyU/%3Fsize%3D2048/https/cdn.discordapp.com/icons/1202078427796996106/a_72211a5babea3aaadf896e8804ce8991.gif" alt="Discord Icon" class="widget-icon">
+                        <div class="widget-info">
+                            <h3>XVIII <span class="verified-badge">✓</span></h3>
+                            <ul class="widget-stats">
+                                <li><span class="stat-dot"></span> 14 online</li>
+                                <li><span class="stat-dot2"></span> 26 members</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget-footer">
+                        <span class="widget-description">Servidor de suporte para rafa.bio. Conheça agora @ https://rafa.bio/</span>
+                        <span class="widget-join">Join</span>
+                    </div>
                 </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="features-column">
+                <div class="feature-header">
+                    <!-- <img src="/img/music-icon.png" alt="Music Icon" class="feature-icon"> -->
+                     <!-- <div class="feature-icon">
+                        <svg fill="#c4b136" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#c4b136"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g data-name="Layer 2"> <g data-name="music"> <rect width="24" height="24" opacity="0"></rect> <path d="M19 15V4a1 1 0 0 0-.38-.78 1 1 0 0 0-.84-.2l-9 2A1 1 0 0 0 8 6v8.34a3.49 3.49 0 1 0 2 3.18 4.36 4.36 0 0 0 0-.52V6.8l7-1.55v7.09a3.49 3.49 0 1 0 2 3.17 4.57 4.57 0 0 0 0-.51z"></path> </g> </g> </g></svg>
+                     </div> -->
+                    <h2>Music Player</h2>
+                </div>
+                <p class="feature-description">Coloque suas músicas favoritas e deixe quem está visualizando o perfil ouvir diretamente da sua página.</p>
                 
-                <!-- Total time -->
-                <span class="total-time" style="margin-left: 5px; margin-right: 10px; opacity: 0.9">2:40</span>
-                
-                <!-- Previous button -->
-                <svg style="opacity: 0.4; margin-right: 2px; font-size: 25px;" class="prev" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M7 6c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1s-1-.45-1-1V7c0-.55.45-1 1-1m3.66 6.82l5.77 4.07c.66.47 1.58-.01 1.58-.82V7.93c0-.81-.91-1.28-1.58-.82l-5.77 4.07a1 1 0 0 0 0 1.64"></path></svg>
-                
-                <!-- Play/Pause button -->
-                <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="cursor: pointer; pointer-events: auto; margin: 0 5px;">
+                <div class="feature-card music-card">
+                    <div class="music-player">
+                        <img src="https://images.genius.com/3a9912e2c81d0295a2ae81309be9cb3f.999x999x1.png" alt="Album Cover" class="album-cover">
+                        <div class="music-info">
+                            <h3>Nope your too late i already died <svg style="margin-left: 5.9em;" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" class="shrink-0" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M451.46,244.71H576V172H451.46Zm0-173.89v72.67H576V70.82Zm0,275.06H576V273.2H451.46ZM0,447.09H124.54V374.42H0Zm150.47,0H275V374.42H150.47Zm150.52,0H425.53V374.42H301Zm150.47,0H576V374.42H451.46ZM301,345.88H425.53V273.2H301Zm-150.52,0H275V273.2H150.47Zm0-101.17H275V172H150.47Z"></path></svg></h3>
+                            <p class="artist">wifiskeleton, i wanna be a jack-o-lantern</p>
+                        </div>
+                    </div>
+                    <div class="player-controls">
+                        <div class="controls-buttons">
+                            <!-- <button class="prev-btn">◀</button> -->
+                            <svg style="opacity: 0.4;" class="prev" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M7 6c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1s-1-.45-1-1V7c0-.55.45-1 1-1m3.66 6.82l5.77 4.07c.66.47 1.58-.01 1.58-.82V7.93c0-.81-.91-1.28-1.58-.82l-5.77 4.07a1 1 0 0 0 0 1.64"></path></svg>
+                            <!-- <button class="play-btn">▶</button> -->
+                                             <!-- Ícone de PLAY -->
+                <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="cursor: pointer; pointer-events: auto;">
                     <path fill="currentColor" d="M8 19c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2v10c0 1.1.9 2 2 2m6-12v10c0 1.1.9 2 2 2s2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2"></path>
                 </svg>
                 
-                <svg class="play-pause" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="cursor: pointer; display: none; pointer-events: auto; margin: 0 5px;">
+                <!-- Ícone de PAUSE (não visível inicialmente) -->
+                <svg class="play-pause" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" style="cursor: pointer; display: none; pointer-events: auto;">
                     <path fill="currentColor" d="M8 17.175V6.825q0-.425.3-.713t.7-.287q.125 0 .263.037t.262.113l8.15 5.175q.225.15.338.375t.112.475t-.112.475t-.338.375l-8.15 5.175q-.125.075-.262.113T9 18.175q-.4 0-.7-.288t-.3-.712"></path>
                 </svg>
-                
-                <!-- Next button -->
-                <svg style="opacity: 0.4; margin-left: 2px; font-size: 25px;" class="next" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m7.58 16.89l5.77-4.07c.56-.4.56-1.24 0-1.63L7.58 7.11C6.91 6.65 6 7.12 6 7.93v8.14c0 .81.91 1.28 1.58.82M16 7v10c0 .55.45 1 1 1s1-.45 1-1V7c0-.55-.45-1-1-1s-1 .45-1 1"></path></svg>
+                            <!-- <button class="next-btn">▶</button> -->
+                            <svg style="opacity: 0.4;" class="next" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m7.58 16.89l5.77-4.07c.56-.4.56-1.24 0-1.63L7.58 7.11C6.91 6.65 6 7.12 6 7.93v8.14c0 .81.91 1.28 1.58.82M16 7v10c0 .55.45 1 1 1s1-.45 1-1V7c0-.55-.45-1-1-1s-1 .45-1 1"></path></svg>
+                        </div>
+                        <div class="time-display">0:00</div>
+                    </div>
+                </div>
             </div>
         </div>
-        <audio class="audioPlayer" src="/img/feel good inc by Gorillaz (peace cover).mp3"></audio>
+
+        <div class="divider horizontal-divider"></div>
+
+        <div class="features-grid small-features">
+            <div class="small-feature">
+                <div class="small-feature-header">
+                    <div class="small-feature-icon"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 640 512" class="size-4 text-theme" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"></path></svg></div>
+                    <h3>Links</h3>
+                </div>
+                <p>Conecte os perfis da suas redes sociais e websites com links customizados.</p>
+            </div>
+            
+            <div class="small-feature">
+                <div class="small-feature-header">
+                    <div class="small-feature-icon"><svg viewBox="0 0 16 16" height="1.5em" width="1.5em" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M0 1H5L8 3H13V5H3.7457L2.03141 11H4.11144L5.2543 7H16L14 14H0V1Z" fill="#dbbf41"></path> </g></svg></div>
+                    <h3>Templates</h3>
+                </div>
+                <p>Escolha entre uma variedade de builds pré-feitas.</p>
+            </div>
+            
+            <div class="small-feature">
+                <div class="small-feature-header">
+                    <div class="small-feature-icon"><svg viewBox="0 0 1920 1920" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg" fill="#dbbf41"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill-rule="evenodd" clip-rule="evenodd" stroke="none" stroke-width="1"> <path fill-rule="evenodd" clip-rule="evenodd" d="M746.667 106.667V1493.33H1173.33V106.667H746.667ZM1056 224H864V1376H1056V224ZM106.667 533.333H533.333V1493.33H106.667V533.333ZM224 650.667H416V1376H224V650.667Z"></path> <path d="M1920 1706.67H0V1824H1920V1706.67Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M1386.67 746.667H1813.33V1493.33H1386.67V746.667ZM1504 864H1696V1376H1504V864Z"></path> </g> </g></svg></div>
+                    <h3>Analytics</h3>
+                </div>
+                <p>Com o seu perfil já montado e uma página no ar veja quantas pessoas te visualizaram.</p>
+            </div>
+            
+            <div class="small-feature">
+                <div class="small-feature-header">
+                    <div class="small-feature-icon"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="size-4 text-theme" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path d="M20 3C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20ZM11 13H5V19H11V13ZM13 19H19V5H13V19ZM11 5H5V11H11V5Z"></path></svg></div>
+                    <h3>Layouts</h3>
+                </div>
+                <p>Escolha o seu layout com opções flexiveis.</p>
+            </div>
+            
+            <div class="small-feature">
+                <div class="small-feature-header">
+                    <div class="small-feature-icon"><svg viewBox="0 0 24 24" height="1.5em" width="1.5em" fill="none" xmlns="http://www.w3.org/2000/svg" stroke=""><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 4V20M17 12V20M6 20H10M15 20H19M13 7V4H3V7M21 14V12H13V14" stroke="#dbbf41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg></div>
+                    <h3>Rich Text</h3>
+                </div>
+                <p>Estilize sua página com fontes, cores, backgrounds e cursores personalizados.</p>
+            </div>
+            
+            <div class="small-feature">
+                <div class="small-feature-header">
+                    <div class="small-feature-icon"><svg fill="#dbbf41" height="1.5em" width="1.5em" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 488.85 488.85" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M244.425,98.725c-93.4,0-178.1,51.1-240.6,134.1c-5.1,6.8-5.1,16.3,0,23.1c62.5,83.1,147.2,134.2,240.6,134.2 s178.1-51.1,240.6-134.1c5.1-6.8,5.1-16.3,0-23.1C422.525,149.825,337.825,98.725,244.425,98.725z M251.125,347.025 c-62,3.9-113.2-47.2-109.3-109.3c3.2-51.2,44.7-92.7,95.9-95.9c62-3.9,113.2,47.2,109.3,109.3 C343.725,302.225,302.225,343.725,251.125,347.025z M248.025,299.625c-33.4,2.1-61-25.4-58.8-58.8c1.7-27.6,24.1-49.9,51.7-51.7 c33.4-2.1,61,25.4,58.8,58.8C297.925,275.625,275.525,297.925,248.025,299.625z"></path> </g> </g></svg></div>
+                    <h3>Preview</h3>
+                </div>
+                <p>Acompanhe como está ficando a página antes de ir ao ar.</p>
+            </div>
+
+            <div class="small-feature">
+                <div class="small-feature-header">
+                    <div class="small-feature-icon"><svg viewBox="0 0 16 16" height="1.5em" width="1.4em" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="#dbbf41"> <path d="M1.5 8a6.5 6.5 0 016.744-6.496.75.75 0 10.055-1.499 8 8 0 107.036 11.193.75.75 0 00-1.375-.6 6.722 6.722 0 01-.22.453A6.5 6.5 0 011.5 8zM10.726 1.238a.75.75 0 011.013-.312c.177.094.35.194.518.3a.75.75 0 01-.799 1.27 6.512 6.512 0 00-.42-.244.75.75 0 01-.312-1.014zM13.74 3.508a.75.75 0 011.034.235c.106.168.206.34.3.518a.75.75 0 11-1.326.702 6.452 6.452 0 00-.243-.421.75.75 0 01.235-1.034zM15.217 6.979a.75.75 0 01.777.722 8.034 8.034 0 01.002.552.75.75 0 01-1.5-.047 6.713 6.713 0 000-.45.75.75 0 01.721-.777z"></path> <path d="M7.75 3a.75.75 0 01.75.75v3.786l2.085 1.043a.75.75 0 11-.67 1.342l-2.5-1.25A.75.75 0 017 8V3.75A.75.75 0 017.75 3z"></path> </g> </g></svg></div>
+                    <h3>Customs</h3>
+                </div>
+                <p>Animações com delays customizados pra sincronizar com a música e o background.</p>
+            </div>
+
+            <div class="small-feature">
+                <div class="small-feature-header">
+                    <div class="small-feature-icon"><svg xmlns="http://www.w3.org/2000/svg" class="qBcynz_e6a4312a1f03d5aee666" width="1.5em" height="1.4em" viewBox="23 32 465 448"><path fill="currentColor" d="M396.31 32H264l84.19 112.26L396.31 32zm-280.62 0l48.12 112.26L248 32H115.69zM256 74.67L192 160h128l-64-85.33zm166.95-23.61L376.26 160H488L422.95 51.06zm-333.9 0L23 160h112.74L89.05 51.06zM146.68 192H24l222.8 288h.53L146.68 192zm218.64 0L264.67 480h.53L488 192H365.32zm-35.93 0H182.61L256 400l73.39-208z"></path></svg></div>
+                    <h3>Premium</h3>
+                </div>
+                <p>Modificações diárias no plano premium.</p>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+
+<h1 style="text-align: center; font-size: 2em; color: #fff; margin-top: 100px; font-weight: 500;">
+    Explore nossos planos exclusivos e junte-se a 
+    <span style="background: linear-gradient(90deg, #dbbf41, #dbbf4123); -webkit-background-clip: text; color: transparent;">
+      20.100+ usuários
+    </span>
+  </h1>
+
+  <section class="prices" style="margin-bottom: 90px;">
+<div style="display: flex; justify-content: center; gap: 32px; margin-top: 90px;">
+     <!-- Plano Básico --> 
+      <div class="basic" style="background-color: #111111d7; color: #fff; border-radius: 18px; padding: 32px 28px; width: 300px; box-shadow: 0 2px 12px #0002; border: solid 2px #202020bd;">
+         <h3 style="font-size: 1.4em; margin-bottom: 8px;">Básico</h3>
+          <p style="font-size: 2em; font-weight: 500; margin-bottom: 8px;">R$ 11,80</p>
+           <p style="margin-bottom: 18px; color: #a7a7a7;">Para quem está começando e quer o essencial.</p>
+            <ul style="list-style: none; padding: 0; margin-bottom: 24px;">
+                 <li>✔ Personalização básica</li>
+                  <li>✔ Acesso ao painel</li>
+                  <li>✔ Suporte padrão</li></ul>
+                  <button style="background: #ffffff10; color: #ffffff; border: 2px solid #dbbf4109; border-radius: 999px; padding: 10px 0; width: 100%; font-weight: 800; cursor: pointer; margin-top: 26px; margin-bottom: -30px;">Começar</button>
+                </div>
+
+                  <!-- Plano VIP (Destaque) --> 
+                   <div class="VIP" style="color: #fff; border-radius: 22px; padding: 40px 32px; width: 320px; position: relative; border: 2px solid #dbbf4110; background-image: url(/img/gradient_background\ copiar.jpg); background-color: #dbbf41; backdrop-filter: blur(25px);">
+                     <div style="position: absolute; top: 18px; right: 18px; background: #fff2; color: #fff; font-size: 0.9em; padding: 4px 14px; border-radius: 12px; font-weight: bold; background: linear-gradient(90deg, #dbbf4123, #f0e68c); -webkit-background-clip: text; color: transparent;">Recomendado</div>
+                     <h3 style="font-size: 1.6em; margin-bottom: 8px;">VIP<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 512 400" style="margin-left: 5px;"><path fill="currentColor" d="M121.72 32a4 4 0 0 0-3.72 5.56l2.3 5.43l40.7 94.9a4 4 0 0 0 6.88.82L243 38.4a4 4 0 0 0-3.2-6.4Zm298.21 26.06l-41.28 96.37a4 4 0 0 0 3.68 5.57h101a4 4 0 0 0 3.4-6.11L427 57.53a4 4 0 0 0-7.07.53M85 57.57l-59.71 96.32a4 4 0 0 0 3.4 6.11h101a4 4 0 0 0 3.67-5.58L92 58.1a4 4 0 0 0-7-.53M393.27 32H267.82a1.94 1.94 0 0 0-1.56 3.11l79.92 106.46a1.94 1.94 0 0 0 3.34-.4L391.6 43l3.4-8.34a1.92 1.92 0 0 0-1.7-2.66ZM239 448l-89.43-253.49A3.78 3.78 0 0 0 146 192H25.7a3.72 3.72 0 0 0-2.95 6l216 279.81a5.06 5.06 0 0 0 6.39 1.37a5 5 0 0 0 2.39-6.08Zm247.3-256H366a3.75 3.75 0 0 0-3.54 2.51l-98.2 278.16a5.21 5.21 0 0 0 2.42 6.31a5.22 5.22 0 0 0 6.61-1.39L489.25 198a3.72 3.72 0 0 0-2.95-6M259.2 78.93l56 74.67a4 4 0 0 1-3.2 6.4H200a4 4 0 0 1-3.2-6.4l56-74.67a4 4 0 0 1 6.4 0m-7 310.31l-67.7-191.91a4 4 0 0 1 3.77-5.33h135.46a4 4 0 0 1 3.77 5.33l-67.73 191.91a4 4 0 0 1-7.54 0Z"></path></svg></h3>
+                       <p style="font-size: 2.2em; font-weight: 500; margin-bottom: 8px;">R$ 24,80</p>
+                        <p style="margin-bottom: 18px; color: #a7a7a7;">O plano perfeito para quem quer mais recursos e destaque.</p>
+                         <ul style="list-style: none; padding: 0; margin-bottom: 24px;">
+                             <li>✔ Tudo do Básico</li> <li>✔ Layouts exclusivos</li>
+                              <li>✔ Fontes personalizadas</li>
+                               <li>✔ Efeitos especiais</li>
+                                <li>✔ Suporte prioritário</li>
+                             </ul>
+                              <button style="background: #ffffff10; color: #ffffff; border: 2px solid #dbbf4109; border-radius: 999px; padding: 12px 0; width: 100%; font-weight: 800; cursor: pointer; margin-top: 60px; margin-bottom: -90px;">Saiba Mais</button>
+                             </div>
+
+                              <!-- Plano Deluxe -->
+                                <!-- <div class="Deluxe" style="background: #18181b; color: #fff; border-radius: 18px; padding: 32px 28px; width: 300px; box-shadow: 0 2px 12px #0002;">
+                                     <h3 style="font-size: 1.4em; margin-bottom: 8px;">Deluxe</h3>
+                                      <p style="font-size: 2em; font-weight: 500; margin-bottom: 8px;">R$ 42,80</p>
+                                       <p style="margin-bottom: 18px;">Para quem quer tudo e mais um pouco.</p>
+                                        <ul style="list-style: none; padding: 0; margin-bottom: 24px;">
+                                             <li>✔ Tudo do VIP</li> <li>✔ Personalização avançada</li>
+                                              <li>✔ Consultoria exclusiva</li> <li>✔ Suporte premium</li>
+                                             </ul>
+                                              <button style="background: #a78bfa; color: #18181b; border: none; border-radius: 8px; padding: 10px 0; width: 100%; font-weight: 500; cursor: pointer;">Assinar Deluxe</button>
+                                             </div> -->
+    </div>
+</section>
 
 
 
-</div>
+            <!-- <section class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">10.000+</div>
+                    <div class="stat-label">Clientes Satisfeitos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5.000+</div>
+                    <div class="stat-label">Produtos Disponíveis</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Taxa de Satisfação</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Suporte ao Cliente</div>
+                </div>
+            </section> -->
 
-<!-- Substitua o código atual das views por esse grupo de elementos -->
-<div class="scanline">
-<div class="profileStats">
-<!-- Seção de views -->
-<div class="profileViews" data-type="Views">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-        <circle cx="12" cy="12" r="3"></circle>
-    </svg>
-    <span style="font-weight:400;font-size:17px">2,857</span>
-</div>
+            <div class="faq-container">
+                <h1>Frequently Asked Questions</h1>
+                
+                <div class="faq-item">
+                  <div class="faq-question">
+                    What is LinkPro?
+                    <div class="faq-arrow">▼</div>
+                  </div>
+                  <div class="faq-content">
+                    LinkPro is a platform that provides modern and feature-rich bio links, as well as secure file hosting services. It allows you to create a centralized hub for all your online content.
+                  </div>
+                </div>
+                
+                <div class="faq-item">
+                  <div class="faq-question">
+                    Is LinkPro free to use?
+                    <div class="faq-arrow">▼</div>
+                  </div>
+                  <div class="faq-content">
+                    Yes, LinkPro offers a free tier with basic features. Premium plans are also available with additional functionality, increased storage, and advanced analytics.
+                  </div>
+                </div>
+                
+                <div class="faq-item">
+                  <div class="faq-question">
+                    What can I do with LinkPro?
+                    <div class="faq-arrow">▼</div>
+                  </div>
+                  <div class="faq-content">
+                    With LinkPro, you can create a customized profile page that houses all your important links, upload and share files securely, track visitor analytics, customize your page appearance, and integrate with various social media platforms.
+                  </div>
+                </div>
+                
+                <div class="faq-item">
+                  <div class="faq-question">
+                    Is LinkPro safe to use?
+                    <div class="faq-arrow">▼</div>
+                  </div>
+                  <div class="faq-content">
+                    Absolutely. LinkPro employs industry-standard security protocols to ensure your data and files remain protected. We use encryption for all sensitive information and regularly update our security measures.
+                  </div>
+                </div>
+                
+                <div class="faq-item">
+                  <div class="faq-question">
+                    How long does it take to set up a LinkPro profile?
+                    <div class="faq-arrow">▼</div>
+                  </div>
+                  <div class="faq-content">
+                    Setting up your LinkPro profile is quick and easy. Simply create an account and start customizing your profile immediately. Most users complete their initial setup in less than 5 minutes.
+                  </div>
+                </div>
+              </div>
 
-<!-- Separador -->
-<div class="separator"></div>
+        </div>
+        
+        <footer>
+            <div class="container">
+                <div class="copyright">
+                    <img style="height: 1.4em; width: 1.5em;" src="img/rafa-biologo.png" alt="Gun icon" class="gun-icon"> rafa.bio 2025 — All Rights reserved.
+                </div>
+                <div class="footer-links">
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Support</a>
+                    <a href="#">Discord</a>
+                </div>
+            </div>
+        </footer>
 
-<!-- Seção de localização -->
-<div class="profileLocation" data-type="Location">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-        <circle cx="12" cy="10" r="3"></circle>
-    </svg>
-    <span style="font-weight:550;font-size:17px">BR</span>
-</div>
-</div>
-</div>
-    <script src="/js/cur-snow.js"></script>
-    <script>
-// Código do container com animações otimizadas e direção invertida
-const container = document.getElementById('container');
-
-// Configurações iniciais com propriedades otimizadas
-// container.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-element.style.boxShadow = '0 0 0 rgba(0,0,0,0)'; // Sombra invisível
-container.style.zIndex = '1';
-container.style.position = 'relative';
-// Adicionar will-change para informar ao navegador sobre transformações futuras
-container.style.willChange = 'transform';
-// Aplicar aceleração de hardware
-container.style.backfaceVisibility = 'hidden';
-container.style.transformStyle = 'preserve-3d';
-
-// Variáveis para animação suave
-let currentX = 0;
-let currentY = 0;
-let targetX = 0;
-let targetY = 0;
-let rafId = null;
-
-// Função de animação com requestAnimationFrame
-function animateTransform() {
-    // Interpolação suave entre posição atual e alvo (easing)
-    currentX += (targetX - currentX) * 0.1;
-    currentY += (targetY - currentY) * 0.1;
-    
-    // Aplicar transformação com rotação invertida
-    container.style.transform = `
-        perspective(1000px)
-        rotateX(${-currentY}deg)
-        rotateY(${-currentX}deg)
-    `;
-    
-    // Continuar a animação apenas se houver movimento significativo
-    if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
-        rafId = requestAnimationFrame(animateTransform);
-    } else {
-        rafId = null;
-    }
-}
-
-// Efeito de movimento do mouse dentro do container
-container.addEventListener('mousemove', (e) => {
-    const rect = container.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const offsetX = (x - centerX) / centerX;
-    const offsetY = (y - centerY) / centerY;
-    const intensity = 6;
-    
-    // Atualizar os valores alvo
-    targetX = offsetX * intensity;
-    targetY = offsetY * intensity;
-    
-    // Iniciar animação se não estiver rodando
-    if (!rafId) {
-        rafId = requestAnimationFrame(animateTransform);
-    }
-    
-    // Prevenindo propagação do evento
-    e.stopPropagation();
-});
-
-// Quando o mouse sai do container
-container.addEventListener('mouseleave', () => {
-    // Definir alvo como posição inicial
-    targetX = 0;
-    targetY = 0;
-    
-    // Iniciar animação de retorno se não estiver rodando
-    if (!rafId) {
-        rafId = requestAnimationFrame(animateTransform);
-    }
-});
-
-// Adicionando evento para prevenir a criação de sparkles dentro do container
-container.addEventListener('mouseenter', (e) => {
-    e.stopPropagation();
-});
-</script>
+        <script src="/js/headeranim.js"></script>
+        <script src="/js/usersCarrossel.js"></script>
+        <script src="/js/featuresSection.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const popup = document.getElementById('redirect-popup');
-        const popupCancel = document.getElementById('popup-cancel');
-        const popupConfirm = document.getElementById('popup-confirm');
-        const popupMessage = document.getElementById('popup-message');
-        
-        let currentLink = '';
-        let currentPlatform = '';
-        
-        // Adicionar evento de clique aos links com id trigger-popup
-        document.querySelectorAll('a#trigger-popup').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                currentLink = this.getAttribute('href');
-                currentPlatform = this.getAttribute('data-type');
-                
-                // Configurar a mensagem do popup
-                popupMessage.textContent = `Você será redirecionado para ${currentPlatform}. Deseja continuar?`;
-                
-                // Mostrar o popup
-                popup.classList.add('active');
-            });
-        });
-        
-        // Botão Cancelar
-        popupCancel.addEventListener('click', function() {
-            popup.classList.remove('active');
-        });
-        
-        // Botão Confirmar
-        popupConfirm.addEventListener('click', function() {
-            window.open(currentLink, '_blank');
-            popup.classList.remove('active');
-        });
-        
-        // Fechar o popup ao clicar fora dele
-        popup.addEventListener('click', function(e) {
-            if (e.target === popup) {
-                popup.classList.remove('active');
-            }
-        });
+document.querySelectorAll('.faq-question').forEach(question => {
+  question.addEventListener('click', () => {
+    const item = question.parentElement;
+    const content = item.querySelector('.faq-content');
+    const isActive = item.classList.contains('active');
+
+    // Fecha todos os outros itens (opcional, remova se quiser múltiplos abertos)
+    document.querySelectorAll('.faq-item.active').forEach(activeItem => {
+      if (activeItem !== item) {
+        activeItem.classList.remove('active');
+        const activeContent = activeItem.querySelector('.faq-content');
+        activeContent.style.maxHeight = null;
+      }
     });
+
+    if (!isActive) {
+      item.classList.add('active');
+      content.style.maxHeight = content.scrollHeight + "px";
+    } else {
+      item.classList.remove('active');
+      content.style.maxHeight = null;
+    }
+  });
+});
 </script>
-<script>
-    // Atualizar status na página a cada 10 segundos
-    setInterval(() => {
-      fetch('/status')
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('currentStatus').innerText = data.status;
-        });
-    }, 10000);
-  </script>
-
-
 </body>
 
 </html>
