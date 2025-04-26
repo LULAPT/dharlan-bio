@@ -1,6 +1,6 @@
 function atualizarPerfilDiscord(userId) {
     // Se nenhum userId for especificado, usar o ID da Bia por padrão
-    const targetUserId = userId || '874517110678765618';
+    const targetUserId = userId || '682694935631233203';
     
     // URL atualizada para apontar para o endpoint específico do usuário
     fetch(`https://discorduserstatus.onrender.com/status/${targetUserId}`)
