@@ -1,11 +1,18 @@
 function atualizarPerfilDiscord(userId) {
-    // Se nenhum userId for especificado, usar o ID da Bia por padrão
-    const targetUserId = userId || '682694935631233203';
+    // Verificar e logar qual ID está sendo usado
+    console.log("Atualizando perfil do usuário ID:", userId);
     
     // URL atualizada para apontar para o endpoint específico do usuário
-    fetch(`https://discorduserstatus.onrender.com/status/${targetUserId}`)
-    .then(response => response.json())
+    fetch(`https://discorduserstatus.onrender.com/status/${userId}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Resposta da API não está ok. Status: ' + response.status);
+        }
+        return response.json();
+    })
     .then(data => {
+        console.log("Dados recebidos da API:", data);
+        
         // Atualizar a foto do perfil (se disponível)
         const avatarImg = document.querySelector('.avatarImage');
         if (avatarImg && data.avatarUrl) {
@@ -15,7 +22,10 @@ function atualizarPerfilDiscord(userId) {
                 data.avatarUrl + '?t=' + Date.now();
             
             avatarImg.src = avatarSrc;
-            console.log(`Avatar do usuário ${targetUserId} atualizado:`, avatarSrc);
+            console.log(`Avatar atualizado:`, avatarSrc);
+        } else {
+            console.error('Elemento .avatarImage não encontrado ou data.avatarUrl está vazio');
+            console.log('Elementos disponíveis:', document.querySelectorAll('.avatarImage'));
         }
         
         // Atualizar o status
@@ -28,7 +38,7 @@ function atualizarPerfilDiscord(userId) {
                 case 'dnd': statusImg.src = '/img/dnd.png'; break;
                 default: statusImg.src = '/img/offline.png';
             }
-            console.log(`Status do usuário ${targetUserId} atualizado para:`, data.status);
+            console.log(`Status atualizado para:`, data.status);
         } else {
             console.error('Elemento .discordStatus não encontrado no DOM');
         }
@@ -50,32 +60,52 @@ function atualizarPerfilDiscord(userId) {
     });
 }
 
-// Determinar qual usuário monitorar com base na página
-function determinarUsuarioPagina() {
-    // Você pode usar diferentes métodos para determinar qual usuário exibir
-    // Por exemplo, baseado na URL ou em algum elemento na página
+// Determinar qual usuário monitorar com base no domínio
+function determinarUsuarioDominio() {
+    const hostName = window.location.hostname;
+    console.log("Hostname detectado:", hostName);
     
-    // Exemplo: verificar se estamos na página específica do seu perfil
-    const currentPath = window.location.pathname;
-    if (currentPath.includes('meuperfil') || currentPath.includes('perfil2')) {
-        // Seu ID de usuário
-        return '682694935631233203';
+    // Se estamos no site dharlan-bio.vercel.app
+    if (hostName.includes('dharlan-bio')) {
+        console.log("Identificado como seu site - usando seu ID");
+        return '682694935631233203'; // Seu ID
     }
     
     // Por padrão, retornar o ID da Bia
+    console.log("Usando ID padrão (Bia)");
     return '874517110678765618';
 }
 
-// Forçar atualização completa quando o documento carrega
+// Tenta obter o ID a partir do atributo data ou do domínio
+function obterIdUsuarioDiscord() {
+    // Tentar pegar do atributo data
+    const dataAttr = document.body.getAttribute('data-discord-user');
+    if (dataAttr) {
+        console.log("ID encontrado no atributo data:", dataAttr);
+        return dataAttr;
+    }
+    
+    // Se não encontrar no atributo, usar baseado no domínio
+    return determinarUsuarioDominio();
+}
+
+// Inicialização quando o documento estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM carregado, iniciando script de discord status");
+    
+    // Determinar qual ID usar
+    const userId = obterIdUsuarioDiscord();
+    console.log("ID do usuário Discord selecionado:", userId);
+    
     // Limpar qualquer cache de imagem que possa existir
     const avatarImg = document.querySelector('.avatarImage');
     if (avatarImg) {
         avatarImg.src = '';
+        console.log("Cache de avatar limpo");
+    } else {
+        console.warn("Elemento .avatarImage não encontrado!");
+        console.log("Todos os elementos disponíveis:", document.body.innerHTML);
     }
-    
-    // Determinar qual usuário monitorar
-    const userId = determinarUsuarioPagina();
     
     // Chamar a função para atualizar
     atualizarPerfilDiscord(userId);
@@ -85,11 +115,19 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Adicionar evento de clique manual para forçar atualização
-const avatarImg = document.querySelector('.avatarImage');
-if (avatarImg) {
-    avatarImg.addEventListener('click', function() {
-        console.log('Atualizando avatar manualmente...');
-        const userId = determinarUsuarioPagina();
-        atualizarPerfilDiscord(userId);
-    });
-}
+window.addEventListener('load', function() {
+    const avatarImg = document.querySelector('.avatarImage');
+    if (avatarImg) {
+        avatarImg.addEventListener('click', function() {
+            console.log('Atualizando avatar manualmente...');
+            const userId = obterIdUsuarioDiscord();
+            atualizarPerfilDiscord(userId);
+        });
+        console.log("Evento de clique adicionado à imagem de avatar");
+    } else {
+        console.warn("Não foi possível adicionar evento de clique - elemento não encontrado");
+    }
+});
+
+// Logar inicialização do script
+console.log("Script de status Discord inicializado");
