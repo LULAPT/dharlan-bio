@@ -746,17 +746,7 @@ body {
 /* Para dispositivos móveis - player fixo na parte inferior */
 @media (max-width: 768px) {
     .music-container {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        border-radius: 15px 15px 0 0; /* Arredondamento apenas no topo */
-        padding: 12px 5px;
-        background-color: rgba(0, 0, 0, 0.7); /* Fundo com opacidade para maior legibilidade */
-        backdrop-filter: blur(10px); /* Efeito de vidro fosco */
+        display: none;
     }
     
     /* Ajustar a margem inferior do container principal para evitar que conteúdo fique escondido pelo player */
@@ -880,6 +870,12 @@ body {
 
 .volume-icon {
     z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .volume-icon {
+        display: none;
+    }
 }
 
 .volume-slider {
