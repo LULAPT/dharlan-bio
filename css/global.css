@@ -85,12 +85,12 @@ body {
 }
 
 #background-layer-1 {
-    background-image: url(https://w.wallhaven.cc/full/yx/wallhaven-yxz25k.jpg);
+    background-image: url(/wallhaven-0pq27m.png);
     background-size: cover;
     will-change: transform;
     transform: translateZ(0);
 	pointer-events: none;
-	opacity: 0.9;
+	opacity: 0.4;
 }
 
 /* Animação básica para elementos surgindo */
