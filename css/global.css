@@ -85,7 +85,7 @@ body {
 }
 
 #background-layer-1 {
-    background-image: url(/wallhaven-0pq27m.png);
+    /* background-image: url(/wallhaven-0pq27m.png); */
     background-size: cover;
     will-change: transform;
     transform: translateZ(0);
