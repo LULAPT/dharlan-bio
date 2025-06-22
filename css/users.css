@@ -792,8 +792,14 @@ body {
     font-size: 30px;
 }
 
-.music-player .player-controls .prev:hover{
-    color: #fff;
+.player-controls-timeline .prev,
+.player-controls-timeline .next {
+    transition: opacity 0.4s ease;
+}
+
+.player-controls-timeline .prev:hover,
+.player-controls-timeline .next:hover {
+    opacity: 1.0 !important;
 }
 
 .music-player .player-timeline {
