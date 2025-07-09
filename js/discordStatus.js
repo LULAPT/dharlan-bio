@@ -1,7 +1,7 @@
 function atualizarPerfilDiscord() {
     // Determinar qual ID usar baseado no domínio
     const hostName = window.location.hostname;
-    const userId = hostName.includes('dharlan-bio') ? 
+    const userId = (hostName.includes('dharlan-bio') || hostName.includes('dharlan.eu')) ? 
         '682694935631233203' : // Seu ID para dharlan-bio.vercel.app
         '874517110678765618';  // ID da Bia para outros sites
     

@@ -66,7 +66,7 @@ function determinarUsuarioDominio() {
     console.log("Hostname detectado:", hostName);
     
     // Se estamos no site dharlan-bio.vercel.app
-    if (hostName.includes('dharlan-bio')) {
+    if (hostName.includes('dharlan-bio') || hostName.includes('dharlan.eu')) {
         console.log("Identificado como seu site - usando seu ID");
         return '682694935631233203'; // Seu ID
     }
