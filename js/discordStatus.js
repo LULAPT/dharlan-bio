@@ -8,7 +8,7 @@ function atualizarPerfilDiscord() {
     console.log("Atualizando status Discord para usuário:", userId);
     
     // URL atualizada para apontar para o endpoint específico do usuário
-    fetch(`https://discorduserstatus.onrender.com/status/${userId}`)
+    fetch(`https://discorduserstatus-2-0.onrender.com/status/${userId}`)
     .then(response => response.json())
     .then(data => {
         // Atualizar a foto do perfil (se disponível)
