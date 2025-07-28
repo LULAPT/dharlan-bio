@@ -3,7 +3,7 @@ function atualizarPerfilDiscord(userId) {
     console.log("Atualizando perfil do usuário ID:", userId);
     
     // URL atualizada para apontar para o endpoint específico do usuário
-    fetch(`https://discorduserstatus.onrender.com/status/${userId}`)
+    fetch(`https://discorduserstatus-2-0.onrender.com/${userId}`)
     .then(response => {
         if (!response.ok) {
             throw new Error('Resposta da API não está ok. Status: ' + response.status);
