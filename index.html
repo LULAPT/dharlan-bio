@@ -391,42 +391,32 @@ a, button, .linkedAccountsRedirect svg, .popup-button {
 </div>
 </div>
     <script src="/js/cur-snow.js"></script>
-    <script>
-// Código do container com animações otimizadas e direção invertida
+    <!-- <script>
 const container = document.getElementById('container');
 
-// Configurações iniciais com propriedades otimizadas
-// container.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-element.style.boxShadow = '0 0 0 rgba(0,0,0,0)'; // Sombra invisível
+element.style.boxShadow = '0 0 0 rgba(0,0,0,0)';
 container.style.zIndex = '1';
 container.style.position = 'relative';
-// Adicionar will-change para informar ao navegador sobre transformações futuras
 container.style.willChange = 'transform';
-// Aplicar aceleração de hardware
 container.style.backfaceVisibility = 'hidden';
 container.style.transformStyle = 'preserve-3d';
 
-// Variáveis para animação suave
 let currentX = 0;
 let currentY = 0;
 let targetX = 0;
 let targetY = 0;
 let rafId = null;
 
-// Função de animação com requestAnimationFrame
 function animateTransform() {
-    // Interpolação suave entre posição atual e alvo (easing)
     currentX += (targetX - currentX) * 0.1;
     currentY += (targetY - currentY) * 0.1;
     
-    // Aplicar transformação com rotação invertida
     container.style.transform = `
         perspective(1000px)
         rotateX(${-currentY}deg)
         rotateY(${-currentX}deg)
     `;
     
-    // Continuar a animação apenas se houver movimento significativo
     if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
         rafId = requestAnimationFrame(animateTransform);
     } else {
@@ -434,7 +424,6 @@ function animateTransform() {
     }
 }
 
-// Efeito de movimento do mouse dentro do container
 container.addEventListener('mousemove', (e) => {
     const rect = container.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -445,36 +434,29 @@ container.addEventListener('mousemove', (e) => {
     const offsetY = (y - centerY) / centerY;
     const intensity = 6;
     
-    // Atualizar os valores alvo
     targetX = offsetX * intensity;
     targetY = offsetY * intensity;
     
-    // Iniciar animação se não estiver rodando
     if (!rafId) {
         rafId = requestAnimationFrame(animateTransform);
     }
     
-    // Prevenindo propagação do evento
     e.stopPropagation();
 });
 
-// Quando o mouse sai do container
 container.addEventListener('mouseleave', () => {
-    // Definir alvo como posição inicial
     targetX = 0;
     targetY = 0;
     
-    // Iniciar animação de retorno se não estiver rodando
     if (!rafId) {
         rafId = requestAnimationFrame(animateTransform);
     }
 });
 
-// Adicionando evento para prevenir a criação de sparkles dentro do container
 container.addEventListener('mouseenter', (e) => {
     e.stopPropagation();
 });
-</script>
+</script> -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const popup = document.getElementById('redirect-popup');

@@ -294,3 +294,15 @@ body {
         background-position: 0 50%;
     }
 }
+
+/* ONeko – não interativo e fora do fluxo de eventos */
+#oneko, .oneko, canvas.oneko {
+  position: fixed !important;         /* fixa no viewport */
+  pointer-events: none !important;    /* sem colisão/hover/click */
+  user-select: none !important;       /* evita seleção acidental */
+  touch-action: none !important;      /* não intercepta gestos */
+  transform: none !important;         /* não herda transform */
+  will-change: auto !important;       /* evita promoção desnecessária */
+  z-index: 10 !important;             /* abaixo de overlays críticos */
+  image-rendering: pixelated;
+}
